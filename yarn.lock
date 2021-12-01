@@ -987,7 +987,7 @@ emojis-list@^2.0.0:
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
   integrity sha1-TapNnbAPmBmIDHn6RXrlsJof04k=
 
-encoding@0.1.13:
+encoding@0.1.13, encoding@^0.1.11:
   version "0.1.13"
   resolved "https://registry.yarnpkg.com/encoding/-/encoding-0.1.13.tgz#56574afdd791f54a8e9b2785c0582a2d26210fa9"
   integrity sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==
@@ -1749,6 +1749,11 @@ is-shared-array-buffer@^1.0.1:
   resolved "https://registry.yarnpkg.com/is-shared-array-buffer/-/is-shared-array-buffer-1.0.1.tgz#97b0c85fbdacb59c9c446fe653b82cf2b5b7cfe6"
   integrity sha512-IU0NmyknYZN0rChcKhRO1X8LYz5Isj/Fsqh8NJOSf+N/hCOTwy29F32Ik7a+QszE63IdvmwdTPDd6cZ5pg4cwA==
 
+is-stream@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
+  integrity sha1-EtSj3U5o4Lec6428hBc66A2RykQ=
+
 is-string@^1.0.5, is-string@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/is-string/-/is-string-1.0.7.tgz#0dd12bf2006f255bb58f695110eff7491eebc0fd"
@@ -1785,6 +1790,14 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
+
+isomorphic-fetch@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
+  integrity sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=
+  dependencies:
+    node-fetch "^1.0.1"
+    whatwg-fetch ">=0.10.0"
 
 jest-worker@27.0.0-next.5:
   version "27.0.0-next.5"
@@ -2005,10 +2018,32 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-auth@*, next-auth@^4.0.1:
+next-auth-client@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/next-auth-client/-/next-auth-client-1.5.0.tgz#9a648cffbefc1d1fcc592770a56b373ecf4f3638"
+  integrity sha1-mmSM/778HR/MWSdwpWs3Ps9PNjg=
+  dependencies:
+    isomorphic-fetch "^2.2.1"
+
+next-auth@*:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.0.1.tgz#06ef83ba24a6d032d55dc614c08228ab25fc1360"
   integrity sha512-5z2+OtNAUtR1s4xSSZStMZMk0FRehV9YiB9GSS8gJmn7P2b/z4aIHh9q4sUCJbD09pHj0j1MYq6cn511KkSYzw==
+  dependencies:
+    "@babel/runtime" "^7.15.4"
+    "@panva/hkdf" "^1.0.0"
+    cookie "^0.4.1"
+    jose "^4.1.2"
+    oauth "^0.9.15"
+    openid-client "^5.0.2"
+    preact "^10.5.14"
+    preact-render-to-string "^5.1.19"
+    uuid "^8.3.2"
+
+next-auth@^4.0.0-beta.7:
+  version "4.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.0.0-beta.7.tgz#220aea0c1afa35bd9fa0bfad9bf2e62e91772bf2"
+  integrity sha512-bPoLak4MfmgrcLLaf26tEQttKJPBcP3KAtSXSo2xMhoG+PLnP9gwFmqLwFUX+FvVRf/iwuAUZjPRAqRQ9g3GOw==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@panva/hkdf" "^1.0.0"
@@ -2091,6 +2126,14 @@ node-fetch@2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
+
+node-fetch@^1.0.1:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
+  integrity sha512-NhZ4CsKx7cYm2vSrBAr2PvFOe6sWDf0UYLRqA6svUYg7+/TSfVAu49jYC4BvQ4Sms9SZgdqGBgroqfDhJdTyKQ==
+  dependencies:
+    encoding "^0.1.11"
+    is-stream "^1.0.1"
 
 node-html-parser@1.4.9:
   version "1.4.9"
@@ -3065,6 +3108,11 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
+
+whatwg-fetch@>=0.10.0:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
+  integrity sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==
 
 whatwg-url@^7.0.0:
   version "7.1.0"
