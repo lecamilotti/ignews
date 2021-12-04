@@ -1,4 +1,6 @@
 import { signIn, useSession } from "next-auth/react";
+import { api } from "../../services/api";
+import { getStripeJS } from "../../services/stripe-js";
 import styles from "./styles.module.scss";
 
 interface SubscribeButtonProps {
@@ -6,7 +8,8 @@ interface SubscribeButtonProps {
 }
 export function SubscribeButton({ priceId }: SubscribeButtonProps) {
   const { data: session } = useSession();
-  function handleSubscribe() {
+
+  async function handleSubscribe() {
     if (!session) {
       alert("You must be logged in to subscribe");
       signIn("github");
@@ -14,6 +17,15 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
     }
     // check out session
     // if logged in, subscribe
+    try {
+      const response = await api.post("/subscribe");
+
+      const { sessionId } = response.data;
+      const stripe = await getStripeJS();
+      await stripe.redirectToCheckout(sessionId);
+    } catch (error) {
+      alert(error.message);
+    }
   }
   return (
     <button
