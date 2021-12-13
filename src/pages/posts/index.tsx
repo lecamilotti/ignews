@@ -2,9 +2,20 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import { getPrismicClient } from "../../services/prismic";
 import Prismic from '@prismicio/client';
-import styles from "./styles.module.scss";
+import { RichText } from "prismic-dom";
 
-export default function Posts() {
+import styles from "./styles.module.scss";
+type Post = {
+slug: string;
+title: string;
+exerpt: string;
+updatedAt: string;
+}
+interface PostsProps {
+ posts: Post[]
+}
+
+export default function Posts({ posts}: PostsProps) {
   return (
     <>
       <Head>
@@ -12,39 +23,14 @@ export default function Posts() {
       </Head>
       <main className={styles.container}>
         <div className={styles.posts}>
-          <a href="#">
-            <time>21 april 2021</time>
-            <strong>Creating a Monorepo with Lerna & yarn workspaces</strong>
-            <p>
-              In this guide, you will learn to create a Monorepo to manage
-              multiple packages
-            </p>
+          {posts.map(post => (
+            <a key={post.slug} href="#">
+            <time>{post.updatedAt}</time>
+            <strong>{post.title}</strong>
+            <p>{post.exerpt}</p>
           </a>
-          <a href="#">
-            <time>21 april 2021</time>
-            <strong>Creating a Monorepo with Lerna & yarn workspaces</strong>
-            <p>
-              In this guide, you will learn to create a Monorepo to manage
-              multiple packages
-            </p>
-          </a>
-          <a href="#">
-            <time>21 april 2021</time>
-            <strong>Creating a Monorepo with Lerna & yarn workspaces</strong>
-            <p>
-              In this guide, you will learn to create a Monorepo to manage
-              multiple packages
-            </p>
-          </a>
-          <a href="#">
-            <time>21 april 2021</time>
-            <strong>Creating a Monorepo with Lerna & yarn workspaces</strong>
-            <p>
-              In this guide, you will learn to create a Monorepo to manage
-              multiple packages
-            </p>
-          </a>
-        </div>
+           ))}
+         </div>
       </main>
     </>
   );
@@ -57,9 +43,23 @@ export const getStaticProps: GetStaticProps = async () => {
       fetch: ['post.title', 'post.content'],
       pageSize: 100,
     })
-    console.log(response)
+    
+    const posts = response.results.map(post => {
+      return {
+        slug: post.uid,
+        title: RichText.asText(post.data.title),
+        excerpt: post.data.content.find(content => content.type === 'paragraph')?.text ?? '',
+        updatedAt: new Date(post.last_publication_date).toLocaleDateString('en-UK', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+        })
+      };
+    })
 
     return {
-      props: {}
+      props: {
+        posts
+      }
     }
 }
