@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { SessionStore } from "next-auth/core/lib/cookie";
 import { useSession } from "next-auth/react";
 import Link from "next/dist/client/link";
@@ -55,7 +55,7 @@ export default function PostPreview ({ post}: PostPreviewProps) {
   );
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
     fallback: 'blocking'
